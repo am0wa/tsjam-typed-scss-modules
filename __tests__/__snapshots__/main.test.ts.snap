@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`node-sass implementation main outputs the correct files when outputFolder is passed 1`] = `
+exports[`sass implementation main outputs the correct files when outputFolder is passed 1`] = `
 [
   {
     "contents": "export declare const myCustomClass: string;
@@ -68,7 +68,7 @@ export declare const logo: string;
 ]
 `;
 
-exports[`node-sass implementation main reads options from the configuration file 1`] = `
+exports[`sass implementation main reads options from the configuration file 1`] = `
 [
   {
     "contents": "export type Styles = {
@@ -208,7 +208,7 @@ export default styles;
 ]
 `;
 
-exports[`sass implementation main outputs the correct files when outputFolder is passed 1`] = `
+exports[`sass-embedded implementation main outputs the correct files when outputFolder is passed 1`] = `
 [
   {
     "contents": "export declare const myCustomClass: string;
@@ -276,7 +276,7 @@ export declare const logo: string;
 ]
 `;
 
-exports[`sass implementation main reads options from the configuration file 1`] = `
+exports[`sass-embedded implementation main reads options from the configuration file 1`] = `
 [
   {
     "contents": "export type Styles = {

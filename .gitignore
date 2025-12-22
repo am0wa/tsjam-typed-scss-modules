@@ -1,4 +1,26 @@
-node_modules
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+/node_modules
+/dist
+/.npm
+/.cache
+
+*.tsbuildinfo
 *.log
-dist
+
 .DS_Store
+.env
+.env.*
+!.env.template
+!.env.test
+
+.idea/*
+*.iml
+
+*.scss.d.ts
+
+npm-debug.log*
+.eslintcache
+
+# Vim
+*.swp

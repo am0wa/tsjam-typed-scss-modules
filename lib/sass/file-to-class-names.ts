@@ -5,6 +5,7 @@ import {
   snakeCase,
 } from "change-case";
 import fs from "fs";
+import { DeprecationOrId } from "sass-embedded/dist/types/deprecations";
 import { Implementations, getImplementation } from "../implementations";
 import { Aliases, SASSImporterOptions, customImporters } from "./importer";
 import { sourceToClassNames } from "./source-to-class-names";
@@ -39,6 +40,7 @@ export interface SASSOptions extends SASSImporterOptions {
   includePaths?: string[];
   nameFormat?: string | string[];
   implementation: Implementations;
+  silenceDeprecations?: DeprecationOrId[];
 }
 export const nameFormatDefault: NameFormatWithTransformer = "camel";
 
@@ -52,6 +54,7 @@ export const fileToClassNames = async (
     aliases,
     aliasPrefixes,
     importer,
+    silenceDeprecations = ["legacy-js-api"],
   }: SASSOptions = {} as SASSOptions
 ) => {
   const { renderSync } = getImplementation(implementation);
@@ -71,6 +74,7 @@ export const fileToClassNames = async (
     file,
     data: additionalData ? `${additionalData}\n${data}` : data,
     includePaths,
+    silenceDeprecations, // Suppress specified deprecations
     importer: customImporters({ aliases, aliasPrefixes, importer }),
   });
 

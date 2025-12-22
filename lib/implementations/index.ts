@@ -1,5 +1,5 @@
-import nodeSass from "node-sass";
 import sass from "sass";
+import sassEmbedded from "sass-embedded";
 
 /**
  * A list of all possible SASS package implementations that can be used to
@@ -7,10 +7,10 @@ import sass from "sass";
  * that they provide a nearly identical API so they can be swapped out but
  * all of the same logic can be reused.
  */
-export const IMPLEMENTATIONS = ["node-sass", "sass"] as const;
+export const IMPLEMENTATIONS = ["sass", "sass-embedded"] as const;
 export type Implementations = (typeof IMPLEMENTATIONS)[number];
 
-type Implementation = typeof nodeSass | typeof sass;
+type Implementation = typeof sass | typeof sassEmbedded;
 
 /**
  * Determine which default implementation to use by checking which packages
@@ -21,16 +21,16 @@ type Implementation = typeof nodeSass | typeof sass;
 export const getDefaultImplementation = (
   resolver: RequireResolve = require.resolve
 ): Implementations => {
-  let pkg: Implementations = "node-sass";
+  let pkg: Implementations = "sass";
 
   try {
-    resolver("node-sass");
+    resolver("sass");
   } catch (error) {
     try {
-      resolver("sass");
-      pkg = "sass";
+      resolver("sass-embedded");
+      pkg = "sass-embedded";
     } catch (ignoreError) {
-      pkg = "node-sass";
+      pkg = "sass";
     }
   }
 
@@ -43,13 +43,16 @@ export const getDefaultImplementation = (
  * @param implementation the desired implementation.
  */
 export const getImplementation = (
-  implementation?: Implementations
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+  implementation: Implementations | string = "sass"
 ): Implementation => {
   if (implementation === "sass") {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return require("sass");
-  } else {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return require("node-sass");
   }
+  if (implementation === "sass-embedded") {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return require("sass-embedded");
+  }
+  throw new Error(`'${implementation}' Implementation is not supported`);
 };

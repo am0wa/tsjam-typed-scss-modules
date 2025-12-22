@@ -71,6 +71,7 @@ describe("#mergeOptions", () => {
       outputFolder: "__generated__",
       banner: "// override",
       allowArbitraryExtensions: true,
+      silenceDeprecations: DEFAULT_OPTIONS.silenceDeprecations,
     });
   });
 
@@ -116,6 +117,7 @@ describe("#mergeOptions", () => {
       outputFolder: "__generated__",
       importer,
       allowArbitraryExtensions: true,
+      silenceDeprecations: DEFAULT_OPTIONS.silenceDeprecations,
     });
   });
 
@@ -143,7 +145,7 @@ describe("#mergeOptions", () => {
         },
         {
           nameFormat: ["param"],
-          implementation: "node-sass",
+          implementation: "sass-embedded",
           exportType: "named",
           exportTypeName: "Classnames",
           exportTypeInterface: "TheStyles",
@@ -176,6 +178,7 @@ describe("#mergeOptions", () => {
       outputFolder: "__cli-generated__",
       importer,
       allowArbitraryExtensions: true,
+      silenceDeprecations: DEFAULT_OPTIONS.silenceDeprecations,
     });
   });
 
@@ -207,7 +210,7 @@ describe("#mergeOptions", () => {
           aliases: {},
           aliasPrefixes: {},
           nameFormat: ["param"],
-          implementation: "node-sass",
+          implementation: "sass-embedded",
           exportType: "named",
           exportTypeName: "Classnames",
           exportTypeInterface: "TheStyles",
@@ -243,6 +246,7 @@ describe("#mergeOptions", () => {
       outputFolder: "__cli-generated__",
       importer,
       allowArbitraryExtensions: true,
+      silenceDeprecations: DEFAULT_OPTIONS.silenceDeprecations,
     });
   });
 });

@@ -33,7 +33,7 @@ describeAllImplementations((implementation) => {
           "~": "nested-styles/",
         },
         ignore: [],
-        implementation,
+        implementation: "sass",
         quoteType: "single",
         updateStaleOnly: false,
         logLevel: "verbose",

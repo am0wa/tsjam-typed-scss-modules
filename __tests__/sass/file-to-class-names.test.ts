@@ -238,6 +238,7 @@ describeAllImplementations((implementation) => {
           {
             implementation,
             additionalData: "$global-red: red;",
+            silenceDeprecations: [],
           }
         );
 

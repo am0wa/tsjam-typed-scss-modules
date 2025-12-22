@@ -80,6 +80,7 @@ export const DEFAULT_OPTIONS: CLIOptions = {
   banner: bannerTypeDefault,
   outputFolder: null,
   allowArbitraryExtensions: false,
+  silenceDeprecations: ["legacy-js-api"],
 };
 
 const removedUndefinedValues = <Obj extends Record<string, unknown>>(

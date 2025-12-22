@@ -23,7 +23,7 @@ describe("dart-sass", () => {
     writeFileSyncSpy.mockReset();
   });
 
-  it("@use support", async () => {
+  it("@import support", async () => {
     const pattern = `${__dirname}`;
 
     await main(pattern, {
