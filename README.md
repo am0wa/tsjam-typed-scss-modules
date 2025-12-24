@@ -1,5 +1,7 @@
 # 🎁 typed-scss-modules
 
+**note:** The package derived from [typed-css-modules-sass](https://www.npmjs.com/package/typed-scss-modules) which seems no longer maintained.
+
 [![npm version](https://img.shields.io/npm/v/@tsjam/typed-scss-modules.svg?style=flat)](https://www.npmjs.com/package/typed-scss-modules)
 
 Generate TypeScript definitions (`.d.ts`) files for CSS Modules that are written in SCSS (`.scss`). Check out [this post to learn more](https://skovy.dev/generating-typescript-definitions-for-css-modules-using-sass/) about the rationale and inspiration behind this package.
@@ -408,6 +410,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
 ## Alternatives
+
+This package derived from [typed-css-modules-sass](https://www.npmjs.com/package/typed-scss-modules) which seems no longer maintained.
 
 This package was heavily influenced on [typed-css-modules](https://github.com/Quramy/typed-css-modules) which generates TypeScript definitions (`.d.ts`) files for CSS Modules that are written in CSS (`.css`).
 
