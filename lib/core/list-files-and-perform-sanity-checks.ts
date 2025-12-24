@@ -1,4 +1,4 @@
-import glob from "glob";
+import { globSync } from "glob";
 import { alerts } from "./alerts";
 import { ConfigOptions } from "./types";
 
@@ -14,7 +14,7 @@ export function listFilesAndPerformSanityChecks(
   options: ConfigOptions
 ): string[] {
   // Find all the files that match the provided pattern.
-  const files = glob.sync(pattern, { ignore: options.ignore });
+  const files = globSync(pattern, { ignore: options.ignore });
 
   if (!files || !files.length) {
     alerts.error("No files found.");
