@@ -1,4 +1,4 @@
-import chokidar from "chokidar";
+import chok from "chokidar";
 import { alerts } from "./alerts";
 import { listFilesAndPerformSanityChecks } from "./list-files-and-perform-sanity-checks";
 import { removeSCSSTypeDefinitionFile } from "./remove-file";
@@ -16,11 +16,12 @@ export const watch = (pattern: string, options: ConfigOptions): void => {
 
   alerts.success("Watching files...");
 
-  chokidar
-    .watch(pattern, {
-      ignoreInitial: options.ignoreInitial,
-      ignored: options.ignore,
-    })
+  const watcher = chok.watch(pattern, {
+    ignoreInitial: options.ignoreInitial,
+    ignored: options.ignore,
+  });
+
+  watcher
     .on("change", (path) => {
       alerts.info(`[CHANGED] ${path}`);
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
