@@ -1,6 +1,6 @@
 {
   "name": "@tsjam/typed-scss-modules",
-  "version": "8.2.0-4",
+  "version": "8.2.0-5",
   "description": "TypeScript type definition generator for SCSS CSS Modules",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
@@ -43,8 +43,7 @@
     "check-formatting": "prettier --check '**/*.{js,json,css,md,scss,tsx,ts}'",
     "check-linting": "eslint .",
     "commit": "commit",
-    "postinstall": "npm run build",
-    "prepare": "husky",
+    "prepare": "npm run build && husky",
     "prepublishOnly": "[ \"$CI\" = \"true\" ] || (npm run build && npm test)",
     "semantic-release": "semantic-release"
   },
