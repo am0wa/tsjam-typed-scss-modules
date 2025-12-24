@@ -1,19 +1,20 @@
 {
   "name": "@tsjam/typed-scss-modules",
-  "version": "8.2.0-3",
+  "version": "8.2.0-4",
   "description": "TypeScript type definition generator for SCSS CSS Modules",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
-  "author": "Spencer Miskoviak <smiskoviak@gmail.com>",
+  "author": "am0wa <am0wa.it@gmail.com>",
   "contributors": [
     {
-      "name": "am0wa",
-      "email": "am0wa.it@gmail.com"
+      "name": "Spencer Miskoviak",
+      "email": "smiskoviak@gmail.com"
     }
   ],
   "license": "MIT",
   "engines": {
-    "node": ">=22"
+    "node": ">=22.19",
+    "npm": ">=10.9"
   },
   "repository": {
     "type": "git",
@@ -44,6 +45,7 @@
     "commit": "commit",
     "postinstall": "npm run build",
     "prepare": "husky",
+    "prepublishOnly": "[ \"$CI\" = \"true\" ] || (npm run build && npm test)",
     "semantic-release": "semantic-release"
   },
   "devDependencies": {
