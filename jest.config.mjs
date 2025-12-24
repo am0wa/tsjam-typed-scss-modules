@@ -1,4 +1,4 @@
-export default {
+const config = {
   clearMocks: true,
   testMatch: ["**/__tests__/**/*.test.ts"],
   testPathIgnorePatterns: [
@@ -10,3 +10,5 @@ export default {
     "[/\\\\]node_modules[/\\\\](?!bundle-require).+\\.js$",
   ],
 };
+
+export default config;
