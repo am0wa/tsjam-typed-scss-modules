@@ -42,7 +42,7 @@ jobs:
         run: npm run check:formatting
 
       - name: "Commit formatting check"
-        uses: wagoid/commitlint-github-action@v5
+        uses: wagoid/commitlint-github-action@v6
 
       - name: Release
         env:
