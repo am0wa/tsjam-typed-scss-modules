@@ -1,5 +1,5 @@
-import { listDifferent } from "../../lib/core";
-import { describeAllImplementations } from "../helpers";
+import { listDifferent } from "../../lib/core/index.js";
+import { describeAllImplementations } from "../helpers/index.js";
 
 describeAllImplementations((implementation) => {
   describe("listDifferent", () => {

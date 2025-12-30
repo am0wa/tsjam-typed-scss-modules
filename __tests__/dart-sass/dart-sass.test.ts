@@ -1,7 +1,7 @@
 import fs from "fs";
 import slash from "slash";
-import { alerts } from "../../lib/core";
-import { main } from "../../lib/main";
+import { alerts } from "../../lib/core/alerts.js";
+import { main } from "../../lib/main.js";
 
 describe("dart-sass", () => {
   let writeFileSyncSpy: jest.SpyInstance;

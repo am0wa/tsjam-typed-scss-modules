@@ -1,7 +1,7 @@
 import fs, { type PathOrFileDescriptor } from "fs";
 import path from "path";
-import { writeFile } from "../../lib/core";
-import { describeAllImplementations } from "../helpers";
+import { writeFile } from "../../lib/core/write-file.js";
+import { describeAllImplementations } from "../helpers/index.js";
 
 describeAllImplementations((implementation) => {
   describe("writeFile", () => {

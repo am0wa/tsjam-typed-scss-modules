@@ -6,13 +6,16 @@ import {
 } from "change-case";
 import fs from "fs";
 import type { DeprecationOrId } from "sass-embedded";
-import { type Implementations, getImplementation } from "../implementations";
+import {
+  type Implementations,
+  getImplementation,
+} from "../implementations/implementations.js";
 import {
   type Aliases,
   type SASSImporterOptions,
   customImporters,
-} from "./importer";
-import { sourceToClassNames } from "./source-to-class-names";
+} from "./importer.js";
+import { sourceToClassNames } from "./source-to-class-names.js";
 
 export type { Aliases };
 export type ClassName = string;

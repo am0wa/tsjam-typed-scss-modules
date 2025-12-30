@@ -1,5 +1,5 @@
-import { fileToClassNames } from "../../lib/sass";
-import { describeAllImplementations } from "../helpers";
+import { fileToClassNames } from "../../lib/sass/index.js";
+import { describeAllImplementations } from "../helpers/index.js";
 
 describeAllImplementations((implementation) => {
   describe("fileToClassNames", () => {

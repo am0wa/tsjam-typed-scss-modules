@@ -1,7 +1,4 @@
-import {
-  type Implementations,
-  IMPLEMENTATIONS,
-} from "../../lib/implementations";
+import { type Implementations, IMPLEMENTATIONS } from "../../lib/index.js";
 
 export const describeAllImplementations = (
   fn: (implementation: Implementations) => void

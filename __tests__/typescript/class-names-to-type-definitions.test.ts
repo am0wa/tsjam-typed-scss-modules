@@ -1,6 +1,6 @@
 import os from "os";
 import { join } from "path";
-import { classNamesToTypeDefinitions } from "../../lib/typescript";
+import { classNamesToTypeDefinitions } from "../../lib/typescript/index.js";
 
 jest.mock("../../lib/prettier/can-resolve", () => ({
   canResolvePrettier: () => false,

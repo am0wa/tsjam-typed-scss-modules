@@ -1,8 +1,8 @@
-import type { ClassName } from "lib/sass/file-to-class-names";
+import type { ClassName } from "lib/sass/file-to-class-names.js";
 import os from "os";
 import reserved from "reserved-words";
-import { alerts } from "../core";
-import { attemptPrettier } from "../prettier";
+import { alerts } from "../core/alerts.js";
+import { attemptPrettier } from "../prettier/index.js";
 
 export type ExportType = "named" | "default";
 export const EXPORT_TYPES: ExportType[] = ["named", "default"];

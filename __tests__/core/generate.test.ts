@@ -1,6 +1,6 @@
 import fs from "fs";
-import { generate } from "../../lib/core";
-import { describeAllImplementations } from "../helpers";
+import { generate } from "../../lib/core/index.js";
+import { describeAllImplementations } from "../helpers/index.js";
 
 describeAllImplementations((implementation) => {
   describe("generate", () => {

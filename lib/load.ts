@@ -1,9 +1,10 @@
 import { bundleRequire } from "bundle-require";
 import JoyCon from "joycon";
 import path from "path";
-import { alerts, type CLIOptions, type ConfigOptions } from "./core";
-import { getDefaultImplementation } from "./implementations";
-import { nameFormatDefault } from "./sass";
+import { alerts } from "./core/alerts.js";
+import { type CLIOptions, type ConfigOptions } from "./core/types.js";
+import { getDefaultImplementation } from "./implementations/implementations.js";
+import { nameFormatDefault } from "./sass/file-to-class-names.js";
 import {
   bannerTypeDefault,
   exportTypeDefault,
@@ -11,13 +12,13 @@ import {
   exportTypeNameDefault,
   logLevelDefault,
   quoteTypeDefault,
-} from "./typescript";
+} from "./typescript/index.js";
 
 const VALID_CONFIG_FILES = [
   "typed-scss-modules.config.ts",
   "typed-scss-modules.config.js",
 ];
-const joycon = new JoyCon();
+const joycon = new JoyCon.default();
 
 /**
  * Load a custom config file in the project root directory with any options for this package.

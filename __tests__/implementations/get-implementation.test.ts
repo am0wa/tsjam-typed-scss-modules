@@ -1,4 +1,4 @@
-import { getImplementation } from "../../lib/implementations";
+import { getImplementation } from "../../lib/implementations/implementations.js";
 
 describe("getImplementation", () => {
   it("returns the correct implementation when explicitly passed", async () => {
