@@ -1,6 +1,6 @@
 import path from "path";
-import { DEFAULT_OPTIONS } from "../../lib/load";
-import { getTypeDefinitionPath } from "../../lib/typescript";
+import { DEFAULT_OPTIONS } from "../../lib/load.js";
+import { getTypeDefinitionPath } from "../../lib/typescript/get-type-definition-path.js";
 
 describe("getTypeDefinitionPath", () => {
   const cssFilePath = path.resolve(process.cwd(), "some/path/style.scss");

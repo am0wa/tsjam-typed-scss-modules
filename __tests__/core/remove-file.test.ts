@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
-import { alerts } from "../../lib/core/alerts";
-import { removeSCSSTypeDefinitionFile } from "../../lib/core/remove-file";
-import { DEFAULT_OPTIONS } from "../../lib/load";
+import { alerts } from "../../lib/core/alerts.js";
+import { removeSCSSTypeDefinitionFile } from "../../lib/core/remove-file.js";
+import { DEFAULT_OPTIONS } from "../../lib/load.js";
 
 describe("removeFile", () => {
   const originalTestFile = path.resolve(__dirname, "..", "removable.scss");

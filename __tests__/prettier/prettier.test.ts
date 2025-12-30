@@ -1,7 +1,7 @@
 import { join } from "path";
 import prettier from "prettier";
-import { attemptPrettier } from "../../lib/prettier";
-import { classNamesToTypeDefinitions } from "../../lib/typescript";
+import { attemptPrettier } from "../../lib/prettier/index.js";
+import { classNamesToTypeDefinitions } from "../../lib/typescript/index.js";
 
 const file = join(__dirname, "test.d.ts");
 const input =

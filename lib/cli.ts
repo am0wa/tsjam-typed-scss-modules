@@ -2,10 +2,10 @@
 
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { IMPLEMENTATIONS } from "./implementations";
-import { main } from "./main";
-import { type Aliases, NAME_FORMATS } from "./sass";
-import { EXPORT_TYPES, LOG_LEVELS, QUOTE_TYPES } from "./typescript";
+import { IMPLEMENTATIONS } from "./implementations/index.js";
+import { main } from "./main.js";
+import { type Aliases, NAME_FORMATS } from "./sass/index.js";
+import { EXPORT_TYPES, LOG_LEVELS, QUOTE_TYPES } from "./typescript/index.js";
 
 /*
   hideBin is a shorthand for process.argv.slice(2).

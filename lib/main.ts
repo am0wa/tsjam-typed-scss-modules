@@ -7,8 +7,8 @@ import {
   listDifferent,
   setAlertsLogLevel,
   watch,
-} from "./core";
-import { loadConfig, mergeOptions } from "./load";
+} from "./core/index.js";
+import { loadConfig, mergeOptions } from "./load.js";
 
 export const main = async (
   pattern: string,

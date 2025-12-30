@@ -1,5 +1,5 @@
-import { type ConfigOptions } from "../../lib/core";
-import { listFilesAndPerformSanityChecks } from "../../lib/core/list-files-and-perform-sanity-checks";
+import { listFilesAndPerformSanityChecks } from "../../lib/core/list-files-and-perform-sanity-checks.js";
+import { type ConfigOptions } from "../../lib/core/types.js";
 
 const options: ConfigOptions = {
   banner: "",

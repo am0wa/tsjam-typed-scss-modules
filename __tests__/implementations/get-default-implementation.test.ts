@@ -1,4 +1,4 @@
-import { getDefaultImplementation } from "../../lib/implementations";
+import { getDefaultImplementation } from "../../lib/implementations/implementations.js";
 
 describe("getDefaultImplementation", () => {
   it("returns sass by default", () => {

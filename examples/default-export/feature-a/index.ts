@@ -1,4 +1,5 @@
-import styles, { type ClassNames, type Styles } from "./style.scss";
+import styles from "./style.scss";
+import type { ClassNames, Styles } from "./style.scss.js";
 
 console.log(styles.i);
 console.log(styles["i-am-kebab-cased"]);

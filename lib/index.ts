@@ -1,3 +1,3 @@
-export type { ConfigOptions } from "./core";
-export * from "./implementations";
-export { main as default } from "./main";
+export type { ConfigOptions } from "./core/types.js";
+export * from "./implementations/implementations.js";
+export { main as default } from "./main.js";

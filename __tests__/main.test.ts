@@ -1,9 +1,9 @@
 import fs from "fs";
 import path from "path";
 import slash from "slash";
-import { alerts } from "../lib/core";
-import { main } from "../lib/main";
-import { describeAllImplementations } from "./helpers";
+import { alerts } from "../lib/core/alerts.js";
+import { main } from "../lib/main.js";
+import { describeAllImplementations } from "./helpers/index.js";
 
 describeAllImplementations((implementation) => {
   describe("main", () => {
