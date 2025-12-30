@@ -4,7 +4,7 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { IMPLEMENTATIONS } from "./implementations";
 import { main } from "./main";
-import { Aliases, NAME_FORMATS } from "./sass";
+import { type Aliases, NAME_FORMATS } from "./sass";
 import { EXPORT_TYPES, LOG_LEVELS, QUOTE_TYPES } from "./typescript";
 
 /*

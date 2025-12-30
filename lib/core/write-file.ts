@@ -7,7 +7,7 @@ import {
 } from "../typescript";
 import { alerts } from "./alerts";
 import { removeSCSSTypeDefinitionFile } from "./remove-file";
-import { CLIOptions } from "./types";
+import type { CLIOptions } from "./types";
 
 /**
  * Given a single file generate the proper types.

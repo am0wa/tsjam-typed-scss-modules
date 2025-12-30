@@ -6,7 +6,7 @@ import {
 } from "../typescript";
 import { alerts } from "./alerts";
 import { listFilesAndPerformSanityChecks } from "./list-files-and-perform-sanity-checks";
-import { ConfigOptions } from "./types";
+import type { ConfigOptions } from "./types";
 
 export const listDifferent = async (
   pattern: string,

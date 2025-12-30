@@ -1,9 +1,9 @@
 // import { Importer as ModernImporter } from "sass-embedded";
-import { LegacySyncImporter } from "sass";
+import type { LegacySyncImporter } from "sass";
 
 type Importer = LegacySyncImporter; // TODO | ModernImporter;
 
-export { Importer };
+export type { Importer };
 
 export interface Aliases {
   [index: string]: string;

@@ -1,4 +1,4 @@
-import { ClassName } from "lib/sass/file-to-class-names";
+import type { ClassName } from "lib/sass/file-to-class-names";
 import os from "os";
 import reserved from "reserved-words";
 import { alerts } from "../core";

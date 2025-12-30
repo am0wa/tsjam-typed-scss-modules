@@ -1,7 +1,7 @@
 export {
-  Aliases,
   NAME_FORMATS,
-  SASSOptions,
   fileToClassNames,
   nameFormatDefault,
+  type Aliases,
+  type SASSOptions,
 } from "./file-to-class-names";

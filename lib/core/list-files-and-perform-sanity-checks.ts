@@ -1,6 +1,6 @@
 import { globSync } from "glob";
 import { alerts } from "./alerts";
-import { ConfigOptions } from "./types";
+import type { ConfigOptions } from "./types";
 
 /**
  * Return the files matching the given pattern and alert the user if only 0 or 1

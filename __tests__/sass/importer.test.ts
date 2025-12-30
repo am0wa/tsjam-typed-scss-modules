@@ -1,4 +1,4 @@
-import { LegacyImporterThis } from "sass";
+import type { LegacyImporterThis } from "sass";
 import { aliasImporter, customImporters } from "../../lib/sass/importer";
 
 // SASS importers receive two other arguments that this package doesn't care about.

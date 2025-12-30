@@ -5,12 +5,16 @@ import {
   snakeCase,
 } from "change-case";
 import fs from "fs";
-import { DeprecationOrId } from "sass-embedded/dist/types/deprecations";
-import { Implementations, getImplementation } from "../implementations";
-import { Aliases, SASSImporterOptions, customImporters } from "./importer";
+import type { DeprecationOrId } from "sass-embedded";
+import { type Implementations, getImplementation } from "../implementations";
+import {
+  type Aliases,
+  type SASSImporterOptions,
+  customImporters,
+} from "./importer";
 import { sourceToClassNames } from "./source-to-class-names";
 
-export { Aliases };
+export type { Aliases };
 export type ClassName = string;
 interface Transformer {
   (className: ClassName): string;

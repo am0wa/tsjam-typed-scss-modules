@@ -1,4 +1,4 @@
-import fs, { PathOrFileDescriptor } from "fs";
+import fs, { type PathOrFileDescriptor } from "fs";
 import path from "path";
 import { writeFile } from "../../lib/core";
 import { describeAllImplementations } from "../helpers";

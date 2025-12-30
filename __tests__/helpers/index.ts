@@ -1,4 +1,7 @@
-import { Implementations, IMPLEMENTATIONS } from "../../lib/implementations";
+import {
+  type Implementations,
+  IMPLEMENTATIONS,
+} from "../../lib/implementations";
 
 export const describeAllImplementations = (
   fn: (implementation: Implementations) => void

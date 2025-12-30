@@ -1,7 +1,7 @@
 import { bundleRequire } from "bundle-require";
 import JoyCon from "joycon";
 import path from "path";
-import { alerts, CLIOptions, ConfigOptions } from "./core";
+import { alerts, type CLIOptions, type ConfigOptions } from "./core";
 import { getDefaultImplementation } from "./implementations";
 import { nameFormatDefault } from "./sass";
 import {

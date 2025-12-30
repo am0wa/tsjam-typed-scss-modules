@@ -1,6 +1,6 @@
 import { alerts } from "./alerts";
 import { listFilesAndPerformSanityChecks } from "./list-files-and-perform-sanity-checks";
-import { ConfigOptions } from "./types";
+import type { ConfigOptions } from "./types";
 import { writeFile } from "./write-file";
 
 /**

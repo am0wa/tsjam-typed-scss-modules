@@ -1,5 +1,5 @@
 import path from "path";
-import { ConfigOptions } from "../core";
+import type { ConfigOptions } from "../core";
 
 const CURRENT_WORKING_DIRECTORY = process.cwd();
 

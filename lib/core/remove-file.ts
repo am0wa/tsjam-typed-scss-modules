@@ -1,5 +1,5 @@
 import fs from "fs";
-import { ConfigOptions } from ".";
+import type { ConfigOptions } from ".";
 import { getTypeDefinitionPath } from "../typescript";
 import { alerts } from "./alerts";
 

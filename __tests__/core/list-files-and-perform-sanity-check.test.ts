@@ -1,4 +1,4 @@
-import { ConfigOptions } from "../../lib/core";
+import { type ConfigOptions } from "../../lib/core";
 import { listFilesAndPerformSanityChecks } from "../../lib/core/list-files-and-perform-sanity-checks";
 
 const options: ConfigOptions = {
