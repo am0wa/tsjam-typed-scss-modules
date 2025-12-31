@@ -1,4 +1,6 @@
-import { format, resolveConfig } from "prettier";
+import pkg from "prettier";
+const { format, resolveConfig } = pkg;
+
 import { alerts } from "../core/alerts.js";
 import { canResolvePrettier } from "./can-resolve.js";
 

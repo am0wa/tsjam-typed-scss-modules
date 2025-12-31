@@ -1,4 +1,6 @@
 /* eslint-env node */
-module.exports = {
+const config = {
   banner: "// js-module-exports",
 };
+
+export default config;

@@ -1,5 +1,4 @@
-#!/usr/bin/env node
-
+#!/usr/bin/env node --experimental-strip-types
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { IMPLEMENTATIONS } from "./implementations/index.js";
