@@ -1,9 +1,9 @@
-@import "variables";
+@use "../core/variables";
 
 .text {
-  color: $blue;
+  color: variables.$blue;
 
   &-highlighted {
-    color: $yellow;
+    color: variables.$yellow;
   }
 }

@@ -1,0 +1,9 @@
+@import "~alias";
+
+.text {
+  color: $blue;
+
+  &-highlighted {
+    color: $yellow;
+  }
+}

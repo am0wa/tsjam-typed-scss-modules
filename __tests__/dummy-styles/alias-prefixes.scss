@@ -1,5 +1,5 @@
-@import "~fancy-import";
-@import "~style.scss";
+@use "~fancy-import" as fancy-import;
+@use "~style.scss" as style;
 
 .my-custom-class {
   color: green;
