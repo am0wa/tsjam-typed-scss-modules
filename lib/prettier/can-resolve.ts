@@ -2,7 +2,7 @@
 // https://github.com/facebook/jest/issues/9543
 export function canResolvePrettier() {
   try {
-    require.resolve("prettier");
+    import("prettier");
     return true;
   } catch (_error) {
     // cannot resolve prettier

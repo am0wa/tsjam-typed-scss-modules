@@ -57,7 +57,7 @@ export const fileToClassNames = async (
     silenceDeprecations = ["legacy-js-api"],
   }: SASSOptions = {} as SASSOptions
 ) => {
-  const { renderSync } = getImplementation(implementation);
+  const { renderSync } = await getImplementation(implementation);
 
   const nameFormat = (
     typeof rawNameFormat === "string" ? [rawNameFormat] : rawNameFormat

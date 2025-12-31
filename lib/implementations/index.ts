@@ -19,15 +19,15 @@ type Implementation = typeof sass | typeof sassEmbedded;
  * @param resolver DO NOT USE - this is unfortunately necessary only for testing.
  */
 export const getDefaultImplementation = (
-  resolver: RequireResolve = require.resolve
+  resolver?: RequireResolve
 ): Implementations => {
   let pkg: Implementations = "sass";
 
   try {
-    resolver("sass");
+    resolver ? resolver("sass") : import("sass");
   } catch (error) {
     try {
-      resolver("sass-embedded");
+      resolver ? resolver("sass-embedded") : import("sass-embedded");
       pkg = "sass-embedded";
     } catch (ignoreError) {
       pkg = "sass";
@@ -42,17 +42,25 @@ export const getDefaultImplementation = (
  *
  * @param implementation the desired implementation.
  */
-export const getImplementation = (
+export const getImplementation = async (
   // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   implementation: Implementations | string = "sass"
-): Implementation => {
+): Promise<Implementation> => {
+  const compiler = await getImplementationAsync(implementation);
+  return compiler;
+};
+
+export const getImplementationAsync = (
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+  implementation: Implementations | string = "sass"
+): Promise<Implementation> => {
   if (implementation === "sass") {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return require("sass");
+    return import("sass");
   }
   if (implementation === "sass-embedded") {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return require("sass-embedded");
+    return import("sass-embedded");
   }
   throw new Error(`'${implementation}' Implementation is not supported`);
 };

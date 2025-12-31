@@ -1,22 +1,26 @@
-import sass from "sass";
-import * as sassEmbedded from "sass-embedded";
 import { getImplementation } from "../../lib/implementations";
 
 describe("getImplementation", () => {
-  it("returns the correct implementation when explicitly passed", () => {
-    expect(getImplementation("sass")).toEqual(sass);
-    expect(getImplementation("sass-embedded")).toEqual(sassEmbedded);
+  it("returns the correct implementation when explicitly passed", async () => {
+    const sassImplementation = await getImplementation("sass");
+    expect(await getImplementation("sass")).toEqual(sassImplementation);
+
+    const sassEmbeddedImplementation = await getImplementation("sass-embedded");
+    expect(await getImplementation("sass-embedded")).toEqual(
+      sassEmbeddedImplementation
+    );
   });
 
-  it("returns the correct default implementation if undefined", () => {
-    expect(getImplementation(undefined)).toEqual(sass);
-    expect(getImplementation()).toEqual(sass);
+  it("returns the sass implementation by default", async () => {
+    const sassImplementation = await getImplementation("sass");
+    expect(await getImplementation(undefined)).toEqual(sassImplementation);
+    expect(await getImplementation()).toEqual(sassImplementation);
   });
 
-  it("returns the correct default implementation if it is invalid", () => {
+  it("returns the correct default implementation if it is invalid", async () => {
     const fakeImplementation = "bob-sass";
 
-    expect(() => getImplementation(fakeImplementation)).toThrow(
+    await expect(() => getImplementation(fakeImplementation)).rejects.toThrow(
       new Error(`'${fakeImplementation}' Implementation is not supported`)
     );
   });

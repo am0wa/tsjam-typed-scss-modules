@@ -28,8 +28,7 @@ export const attemptPrettier = async (file: string, input: string) => {
     return input;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-assignment
-  const prettier = require("prettier");
+  const prettier = await import("prettier");
   if (!isPrettier(prettier)) {
     // doesn't look like prettier
     return input;
