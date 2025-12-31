@@ -14,3 +14,5 @@ export const config = {
     "strict-unary",
   ],
 };
+
+export default config;

@@ -1,30 +1,11 @@
+import baseConfig from "@tsjam/swc-jest-config-recommended/jest.config.mjs";
+
+console.log("Jest SWC ESM!! Windmills...");
+
 const config = {
-  preset: "ts-jest/presets/default-esm",
+  ...baseConfig,
   clearMocks: true,
   testMatch: ["**/__tests__/**/*.test.ts"],
-  extensionsToTreatAsEsm: [".ts"],
-  moduleNameMapper: {
-    "^(\\.{1,2}/.*)\\.js$": "$1",
-  },
-  testPathIgnorePatterns: [
-    "<rootDir>/dist/",
-    "<rootDir>/node_modules/",
-    "(.*).d.ts",
-  ],
-  transformIgnorePatterns: [
-    "[/\\\\]node_modules[/\\\\](?!bundle-require).+\\.js$",
-  ],
-  transform: {
-    "^.+.[tj]sx?$": [
-      "ts-jest",
-      {
-        useESM: true,
-        tsconfig: {
-          module: "esnext",
-        },
-      },
-    ],
-  },
 };
 
 export default config;
