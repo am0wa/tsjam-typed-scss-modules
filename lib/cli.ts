@@ -1,12 +1,17 @@
 #!/usr/bin/env node
 
 import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
 import { IMPLEMENTATIONS } from "./implementations";
 import { main } from "./main";
 import { Aliases, NAME_FORMATS } from "./sass";
 import { EXPORT_TYPES, LOG_LEVELS, QUOTE_TYPES } from "./typescript";
 
-const { _: patterns, ...rest } = yargs
+/*
+  hideBin is a shorthand for process.argv.slice(2).
+  It has the benefit that it takes into account variations in some environments
+ */
+const { _: patterns, ...rest } = yargs(hideBin(process.argv))
   .usage(
     "Generate .scss.d.ts from CSS module .scss files.\nUsage: $0 <glob pattern> [options]"
   )
