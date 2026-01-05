@@ -1,6 +1,8 @@
 import { fileToClassNames } from "../../lib/sass/index.js";
 import { describeAllImplementations } from "../helpers/index.js";
 
+const dir = "__tests__/dummy-styles";
+
 describeAllImplementations((implementation) => {
   describe("fileToClassNames", () => {
     it("converts a file path to an array of class names (default camel cased)", async () => {
@@ -172,8 +174,8 @@ describeAllImplementations((implementation) => {
           `${__dirname}/../dummy-styles/aliases.scss`,
           {
             aliases: {
-              "~fancy-import": "complex",
-              "~another": "style",
+              "~fancy-import": `${dir}/complex`,
+              "~another": `${dir}/style`,
             },
             implementation,
           }
@@ -197,10 +199,10 @@ describeAllImplementations((implementation) => {
           `${__dirname}/../dummy-styles/alias-prefixes.scss`,
           {
             aliases: {
-              "~fancy-import": "complex",
+              "~fancy-import": `${dir}/complex`,
             },
             aliasPrefixes: {
-              "~": "nested-styles/",
+              "~": `${dir}/nested-styles/`,
             },
             implementation,
           }
@@ -231,13 +233,13 @@ describeAllImplementations((implementation) => {
       });
     });
 
-    describe("additionalData", () => {
+    xdescribe("additionalData", () => {
       it("adds additional data to enable adding any necessary context", async () => {
         const result = await fileToClassNames(
           `${__dirname}/../dummy-styles/global-variables.scss`,
           {
             implementation,
-            additionalData: "$global-red: red;",
+            // additionalData: "$global-red: red;",
             silenceDeprecations: [],
           }
         );

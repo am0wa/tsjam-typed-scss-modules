@@ -49,10 +49,10 @@ const { _: patterns, ...rest } = yargs(hideBin(process.argv))
   )
   .example("$0 src/**/*.scss --logLevel error", "Output only errors")
   .demandCommand(1)
-  .option("additionalData", {
-    string: true,
-    alias: "d",
-    describe: "Prepends the SCSS code before each file.",
+  .option("style", {
+    choices: ["compressed", "expanded"] as const,
+    alias: "s",
+    describe: "Whether output is compressed or expanded.",
   })
   .option("aliases", {
     coerce: (obj: Aliases): Aliases => obj,
@@ -107,11 +107,11 @@ const { _: patterns, ...rest } = yargs(hideBin(process.argv))
     describe:
       "List any type definitions that are different than those that would be generated.",
   })
-  .option("includePaths", {
+  .option("loadPaths", {
     array: true,
     string: true,
     alias: "i",
-    describe: "Additional paths to include when trying to resolve imports.",
+    describe: "Additional paths to check when trying to resolve imports.",
   })
   .option("ignore", {
     string: true,

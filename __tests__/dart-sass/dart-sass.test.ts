@@ -39,7 +39,6 @@ describe("dart-sass", () => {
       quoteType: "single",
       updateStaleOnly: false,
       logLevel: "verbose",
-      additionalData: "$global-red: red;",
       aliases: {
         "~fancy-import": "complex",
         "~another": "style",

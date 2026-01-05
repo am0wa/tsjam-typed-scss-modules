@@ -6,7 +6,6 @@ export const config = {
   nameFormat: "kebab",
   exportType: "default",
   silenceDeprecations: [
-    "legacy-js-api",
     "import",
     "global-builtin",
     "slash-div",

@@ -70,6 +70,6 @@ export const writeFile = async (
     alerts.success(`[GENERATED TYPES] ${typesPath}`);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    alerts.error(`Write File error: ${errorMessage}`);
+    alerts.error(`Write File '${file}' error: ${errorMessage}`);
   }
 };

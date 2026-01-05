@@ -4,14 +4,14 @@ import {
   paramCase,
   snakeCase,
 } from "change-case";
-import fs from "fs";
-import type { DeprecationOrId } from "sass-embedded";
+import type { Options } from "sass";
 import {
   type Implementations,
   getImplementation,
 } from "../implementations/implementations.js";
 import {
   type Aliases,
+  type SASSImporter,
   type SASSImporterOptions,
   customImporters,
 } from "./importer.js";
@@ -42,29 +42,32 @@ const NAME_FORMATS_WITH_TRANSFORMER = Object.keys(
 export const NAME_FORMATS = [...NAME_FORMATS_WITH_TRANSFORMER, "all"] as const;
 export type NameFormat = (typeof NAME_FORMATS)[number];
 
-export interface SASSOptions extends SASSImporterOptions {
-  additionalData?: string;
-  includePaths?: string[];
+export type SassOptionsSync = Pick<
+  Options<"sync">,
+  "style" | "loadPaths" | "silenceDeprecations"
+>;
+
+export interface SASSOptions extends SASSImporterOptions, SassOptionsSync {
   nameFormat?: string | string[];
   implementation: Implementations;
-  silenceDeprecations?: DeprecationOrId[];
+  importers?: SASSImporter[];
 }
 export const nameFormatDefault: NameFormatWithTransformer = "camel";
 
 export const fileToClassNames = async (
   file: string,
   {
-    additionalData,
-    includePaths = [],
+    style = "expanded",
+    loadPaths = [],
+    silenceDeprecations = [],
     nameFormat: rawNameFormat,
     implementation,
     aliases,
     aliasPrefixes,
-    importer,
-    silenceDeprecations = ["legacy-js-api"],
+    importers = [],
   }: SASSOptions = {} as SASSOptions
 ) => {
-  const { renderSync } = await getImplementation(implementation);
+  const { compile } = await getImplementation(implementation);
 
   const nameFormat = (
     typeof rawNameFormat === "string" ? [rawNameFormat] : rawNameFormat
@@ -76,13 +79,11 @@ export const fileToClassNames = async (
       : (nameFormat as NameFormatWithTransformer[])
     : [nameFormatDefault];
 
-  const data = fs.readFileSync(file).toString();
-  const result = renderSync({
-    file,
-    data: additionalData ? `${additionalData}\n${data}` : data,
-    includePaths,
+  const result = compile(file, {
+    style,
     silenceDeprecations, // Suppress specified deprecations
-    importer: customImporters({ aliases, aliasPrefixes, importer }),
+    importers: customImporters({ aliases, aliasPrefixes, importers }),
+    loadPaths: loadPaths,
   });
 
   const classNames = await sourceToClassNames(result.css, file);

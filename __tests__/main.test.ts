@@ -5,6 +5,8 @@ import { alerts } from "../lib/core/alerts.js";
 import { main } from "../lib/main.js";
 import { describeAllImplementations } from "./helpers/index.js";
 
+const dir = "__tests__/dummy-styles";
+
 describeAllImplementations((implementation) => {
   describe("main", () => {
     let writeFileSyncSpy: jest.SpyInstance;
@@ -42,13 +44,12 @@ describeAllImplementations((implementation) => {
         quoteType: "single",
         updateStaleOnly: false,
         logLevel: "verbose",
-        additionalData: "$global-red: red;",
         aliases: {
-          "~fancy-import": "complex",
-          "~another": "style",
+          "~fancy-import": `${dir}/complex`,
+          "~another": `${dir}/style`,
         },
         aliasPrefixes: {
-          "~": "nested-styles/",
+          "~": `${dir}/nested-styles/`,
         },
       });
 
@@ -83,13 +84,12 @@ describeAllImplementations((implementation) => {
         quoteType: "single",
         updateStaleOnly: false,
         logLevel: "verbose",
-        additionalData: "$global-red: red;",
         aliases: {
-          "~fancy-import": "complex",
-          "~another": "style",
+          "~fancy-import": `${dir}/complex`,
+          "~another": `${dir}/style`,
         },
         aliasPrefixes: {
-          "~": "nested-styles/",
+          "~": `${dir}/nested-styles/`,
         },
       });
 
@@ -120,13 +120,12 @@ describeAllImplementations((implementation) => {
       jest.spyOn(process, "cwd").mockReturnValue(path.resolve(pattern));
 
       await main(pattern, {
-        additionalData: "$global-red: red;",
         aliases: {
-          "~fancy-import": "complex",
-          "~another": "style",
+          "~fancy-import": `${dir}/complex`,
+          "~another": `${dir}/style`,
         },
         aliasPrefixes: {
-          "~": "nested-styles/",
+          "~": `${dir}/nested-styles/`,
         },
         exportType: "default",
       });
@@ -150,13 +149,12 @@ describeAllImplementations((implementation) => {
       const pattern = path.resolve(__dirname, "dummy-styles");
 
       await main(pattern, {
-        additionalData: "$global-red: red;",
         aliases: {
-          "~fancy-import": "complex",
-          "~another": "style",
+          "~fancy-import": `${dir}/complex`,
+          "~another": `${dir}/style`,
         },
         aliasPrefixes: {
-          "~": "nested-styles/",
+          "~": `${dir}/nested-styles/`,
         },
         outputFolder: "__generated__",
       });

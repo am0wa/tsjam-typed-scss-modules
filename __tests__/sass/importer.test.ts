@@ -1,10 +1,26 @@
-import type { LegacyImporterThis } from "sass";
-import { aliasImporter, customImporters } from "../../lib/sass/importer.js";
+import {
+  aliasImporter,
+  aliasResolver,
+  customImporters,
+  type SASSImporter,
+} from "../../lib/sass/importer.js";
 
 // SASS importers receive two other arguments that this package doesn't care about.
-// Fake `this` which the type definitions both define for importers.
-const fakeImporterThis = {} as LegacyImporterThis;
-const fakePrev = "";
+const contextStub = {
+  fromImport: false,
+  containingUrl: null,
+};
+
+const endSegments = (
+  url: URL | Promise<URL | null> | null,
+  segmentsN = 1
+): Promise<string> | string => {
+  if (url instanceof Promise) {
+    return url.then((str) => endSegments(str, segmentsN));
+  }
+  const segments = url?.href.split("/") ?? [];
+  return segments.slice(-segmentsN).join("/");
+};
 
 describe("#aliasImporter", () => {
   it("should create an importer to replace aliases and otherwise return null", () => {
@@ -13,17 +29,15 @@ describe("#aliasImporter", () => {
       aliasPrefixes: {},
     });
 
-    expect(importer.call(fakeImporterThis, "input", fakePrev)).toEqual({
-      file: "output",
-    });
-    expect(importer.call(fakeImporterThis, "~alias", fakePrev)).toEqual({
-      file: "node_modules",
-    });
-    expect(importer.call(fakeImporterThis, "output", fakePrev)).toBeNull();
-    expect(
-      importer.call(fakeImporterThis, "input-substring", fakePrev)
-    ).toBeNull();
-    expect(importer.call(fakeImporterThis, "other", fakePrev)).toBeNull();
+    expect(endSegments(importer.findFileUrl("input", contextStub))).toEqual(
+      "output"
+    );
+    expect(endSegments(importer.findFileUrl("~alias", contextStub))).toEqual(
+      "node_modules"
+    );
+    expect(importer.findFileUrl("output", contextStub)).toBeNull();
+    expect(importer.findFileUrl("input-substring", contextStub)).toBeNull();
+    expect(importer.findFileUrl("other", contextStub)).toBeNull();
   });
 
   it("should create an importer to replace alias prefixes and otherwise return null", () => {
@@ -32,17 +46,15 @@ describe("#aliasImporter", () => {
       aliasPrefixes: { "~": "node_modules/", abc: "def" },
     });
 
-    expect(importer.call(fakeImporterThis, "abc-123", fakePrev)).toEqual({
-      file: "def-123",
-    });
-    expect(importer.call(fakeImporterThis, "~package", fakePrev)).toEqual({
-      file: "node_modules/package",
-    });
-    expect(importer.call(fakeImporterThis, "output~", fakePrev)).toBeNull();
+    expect(endSegments(importer.findFileUrl("abc-123", contextStub))).toEqual(
+      "def-123"
+    );
     expect(
-      importer.call(fakeImporterThis, "input-substring-abc", fakePrev)
-    ).toBeNull();
-    expect(importer.call(fakeImporterThis, "other", fakePrev)).toBeNull();
+      endSegments(importer.findFileUrl("~package", contextStub), 2)
+    ).toEqual("node_modules/package");
+    expect(importer.findFileUrl("output~", contextStub)).toBeNull();
+    expect(importer.findFileUrl("input-substring-abc", contextStub)).toBeNull();
+    expect(importer.findFileUrl("other", contextStub)).toBeNull();
   });
 });
 
@@ -52,31 +64,23 @@ describe("#customImporters", () => {
   });
 
   it("should return only an alias importer by default", () => {
-    const importers = customImporters({
+    const resolver = aliasResolver({
       aliases: { "~alias": "secret/path" },
       aliasPrefixes: { "~": "node_modules/" },
     });
 
-    expect(importers).toHaveLength(1);
-
-    const [aliasImporter] = importers;
-
-    expect(aliasImporter.call(fakeImporterThis, "~package", fakePrev)).toEqual({
-      file: "node_modules/package",
-    });
-    expect(aliasImporter.call(fakeImporterThis, "~alias", fakePrev)).toEqual({
-      file: "secret/path",
-    });
-    expect(aliasImporter.call(fakeImporterThis, "other", fakePrev)).toBeNull();
+    expect(resolver("~package")).toEqual("node_modules/package");
+    expect(resolver("~alias")).toEqual("secret/path");
+    expect(resolver("other")).toBeNull();
   });
 
   it("should add additional importers if passed a function", () => {
-    const importer = jest.fn();
+    const importer = { findFileUrl: jest.fn() };
 
     const importers = customImporters({
       aliases: {},
       aliasPrefixes: {},
-      importer,
+      importers: [importer],
     });
 
     expect(importers).toHaveLength(2);
@@ -84,14 +88,14 @@ describe("#customImporters", () => {
   });
 
   it("should add multiple importers if passed an array", () => {
-    const importer1 = jest.fn();
-    const importer2 = jest.fn();
-    const importer3 = jest.fn();
+    const importer1 = jest.fn() as unknown as SASSImporter;
+    const importer2 = jest.fn() as unknown as SASSImporter;
+    const importer3 = jest.fn() as unknown as SASSImporter;
 
     const importers = customImporters({
       aliases: {},
       aliasPrefixes: {},
-      importer: [importer1, importer2, importer3],
+      importers: [importer1, importer2, importer3],
     });
 
     expect(importers).toHaveLength(4);

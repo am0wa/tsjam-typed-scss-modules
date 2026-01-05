@@ -1,9 +1,10 @@
 // import { Importer as ModernImporter } from "sass-embedded";
-import type { LegacySyncImporter } from "sass";
+import type { FileImporter, PromiseOr, Importer as SassImporter } from "sass";
+import { pathToFileURL } from "url";
 
-type Importer = LegacySyncImporter; // TODO | ModernImporter;
+type Importer = SassImporter<"sync"> | FileImporter<"sync">;
 
-export type { Importer };
+export type { Importer as SASSImporter };
 
 export interface Aliases {
   [index: string]: string;
@@ -17,15 +18,11 @@ interface AliasImporterOptions {
 /**
  * Construct a SASS importer to create aliases for imports.
  */
-export const aliasImporter =
-  ({ aliases, aliasPrefixes }: AliasImporterOptions): Importer =>
+export const aliasResolver =
+  ({ aliases, aliasPrefixes }: AliasImporterOptions) =>
   (url: string) => {
     if (url in aliases) {
-      const file = aliases[url];
-
-      return {
-        file,
-      };
+      return aliases[url];
     }
 
     const prefixMatch = Object.keys(aliasPrefixes).find((prefix) =>
@@ -33,18 +30,31 @@ export const aliasImporter =
     );
 
     if (prefixMatch) {
-      return {
-        file: aliasPrefixes[prefixMatch] + url.substr(prefixMatch.length),
-      };
+      return aliasPrefixes[prefixMatch] + url.substr(prefixMatch.length);
     }
 
     return null;
   };
 
+export const aliasImporter = ({
+  aliases,
+  aliasPrefixes,
+}: AliasImporterOptions): FileImporter => {
+  const resolveFileUrl = aliasResolver({ aliases, aliasPrefixes });
+
+  return {
+    findFileUrl(url): PromiseOr<URL | null, "sync"> {
+      const alias = resolveFileUrl(url);
+      if (!alias) return null;
+      return pathToFileURL(alias) as URL;
+    },
+  };
+};
+
 export interface SASSImporterOptions {
   aliases?: Aliases;
   aliasPrefixes?: Aliases;
-  importer?: Importer | Importer[];
+  importers?: Importer[];
 }
 
 /**
@@ -56,15 +66,8 @@ export interface SASSImporterOptions {
 export const customImporters = ({
   aliases = {},
   aliasPrefixes = {},
-  importer,
+  importers = [],
 }: SASSImporterOptions): Importer[] => {
-  const importers: Importer[] = [aliasImporter({ aliases, aliasPrefixes })];
-
-  if (typeof importer === "function") {
-    importers.push(importer);
-  } else if (Array.isArray(importer)) {
-    importers.push(...importer);
-  }
-
-  return importers;
+  const bundled: Importer[] = [aliasImporter({ aliases, aliasPrefixes })];
+  return bundled.concat(importers);
 };

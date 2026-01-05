@@ -1,5 +1,6 @@
 import path from "path";
 import { DEFAULT_OPTIONS, loadConfig, mergeOptions } from "../lib/load.js";
+import { type SASSImporter } from "../lib/sass/importer.js";
 
 const CONFIG_CASES = [
   "js-default-export",
@@ -76,7 +77,7 @@ describe("#mergeOptions", () => {
   });
 
   it("should allow overriding all default options via the config options", () => {
-    const importer = jest.fn();
+    const importer = jest.fn() as unknown as SASSImporter;
 
     expect(
       mergeOptions(
@@ -96,7 +97,7 @@ describe("#mergeOptions", () => {
           logLevel: "silent",
           banner: "// override",
           outputFolder: "__generated__",
-          importer,
+          importers: [importer],
           allowArbitraryExtensions: true,
         }
       )
@@ -115,14 +116,14 @@ describe("#mergeOptions", () => {
       logLevel: "silent",
       banner: "// override",
       outputFolder: "__generated__",
-      importer,
+      importers: [importer],
       allowArbitraryExtensions: true,
       silenceDeprecations: DEFAULT_OPTIONS.silenceDeprecations,
     });
   });
 
   it("should give precedence to CLI options and still merge config-only options", () => {
-    const importer = jest.fn();
+    const importer = jest.fn() as unknown as SASSImporter;
 
     expect(
       mergeOptions(
@@ -158,7 +159,7 @@ describe("#mergeOptions", () => {
           logLevel: "info",
           banner: "// not override",
           outputFolder: "__generated__",
-          importer,
+          importers: [importer],
         }
       )
     ).toEqual({
@@ -176,14 +177,14 @@ describe("#mergeOptions", () => {
       logLevel: "silent",
       banner: "// override",
       outputFolder: "__cli-generated__",
-      importer,
+      importers: [importer],
       allowArbitraryExtensions: true,
       silenceDeprecations: DEFAULT_OPTIONS.silenceDeprecations,
     });
   });
 
   it("should give ignore undefined CLI options", () => {
-    const importer = jest.fn();
+    const importer = jest.fn() as unknown as SASSImporter;
 
     expect(
       mergeOptions(
@@ -223,7 +224,7 @@ describe("#mergeOptions", () => {
           logLevel: "info",
           banner: "// banner",
           outputFolder: "__generated__",
-          importer,
+          importers: [importer],
           allowArbitraryExtensions: false,
         }
       )
@@ -244,7 +245,7 @@ describe("#mergeOptions", () => {
       logLevel: "silent",
       banner: "// banner",
       outputFolder: "__cli-generated__",
-      importer,
+      importers: [importer],
       allowArbitraryExtensions: true,
       silenceDeprecations: DEFAULT_OPTIONS.silenceDeprecations,
     });
