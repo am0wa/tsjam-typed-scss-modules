@@ -2,7 +2,6 @@ import type { ClassName } from "lib/sass/file-to-class-names.js";
 import os from "os";
 import reserved from "reserved-words";
 import { alerts } from "../core/alerts.js";
-import { attemptPrettier } from "../prettier/index.js";
 
 export type ExportType = "named" | "default";
 export const EXPORT_TYPES: ExportType[] = ["named", "default"];
@@ -96,7 +95,8 @@ export const classNamesToTypeDefinitions = async (
 
     if (lines.length) {
       const typeDefinition = lines.join(`${os.EOL}`) + `${os.EOL}`;
-      return await attemptPrettier(options.file, typeDefinition);
+      // return await attemptPrettier(options.file, typeDefinition); // ignore prettier (slows down)
+      return typeDefinition;
     } else {
       return null;
     }

@@ -34,21 +34,22 @@ const withLogLevelsRestriction =
 
 const error = withLogLevelsRestriction(
   ["verbose", "error", "info"],
-  (message: string) => console.log(chalk.red(message))
+  (message: string) => log(chalk.red(message))
 );
 const warn = withLogLevelsRestriction(["verbose"], (message: string) =>
-  console.log(chalk.yellowBright(message))
+  log(chalk.yellowBright(message))
 );
 const notice = withLogLevelsRestriction(
   ["verbose", "info"],
-  (message: string) => console.log(chalk.gray(message))
+  (message: string) => log(chalk.gray(message))
 );
 const info = withLogLevelsRestriction(["verbose", "info"], (message: string) =>
-  console.log(chalk.blueBright(message))
+  log(chalk.blueBright(message))
 );
 const success = withLogLevelsRestriction(
   ["verbose", "info"],
-  (message: string) => console.log(chalk.green(message))
+  (message: string) => log(chalk.green(message))
 );
+const log = (message: string) => console.log(message);
 
 export const alerts = { error, warn, notice, info, success };

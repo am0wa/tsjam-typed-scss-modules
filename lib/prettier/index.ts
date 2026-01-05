@@ -1,5 +1,4 @@
-import pkg from "prettier";
-const { format, resolveConfig } = pkg;
+import { format, resolveConfig } from "prettier";
 
 import { alerts } from "../core/alerts.js";
 import { canResolvePrettier } from "./can-resolve.js";
@@ -37,9 +36,13 @@ export const attemptPrettier = async (file: string, input: string) => {
   }
 
   try {
-    const config = await prettier.resolveConfig(file, {
-      editorconfig: true,
-    });
+    const config = await prettier
+      .resolveConfig(file, {
+        editorconfig: true,
+      })
+      .catch(() => {
+        /* default */
+      });
     // try to return formatted output
     return prettier.format(input, { ...config, parser: "typescript" });
   } catch (error) {

@@ -1,5 +1,5 @@
 export type Styles = {
-  i: string;
+  "i": string;
   "i-am-kebab-cased": string;
 };
 
