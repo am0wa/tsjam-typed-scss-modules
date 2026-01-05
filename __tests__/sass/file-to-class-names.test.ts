@@ -233,6 +233,7 @@ describeAllImplementations((implementation) => {
       });
     });
 
+    // eslint-disable-next-line jest/no-disabled-tests
     xdescribe("additionalData", () => {
       it("adds additional data to enable adding any necessary context", async () => {
         const result = await fileToClassNames(

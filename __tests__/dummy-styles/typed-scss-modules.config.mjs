@@ -1,4 +1,4 @@
-export const config = {
+const config = {
   banner: "",
   watch: false,
   ignoreInitial: false,
@@ -11,3 +11,5 @@ export const config = {
   updateStaleOnly: false,
   logLevel: "verbose",
 };
+
+export default config;

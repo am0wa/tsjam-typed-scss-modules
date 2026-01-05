@@ -17,7 +17,7 @@ export default [
       "**/*.d.ts",
       "*.config.js",
       "*.config.mjs",
-      "**/typed-scss-modules.config.js",
+      "**/*.config.{js,mjs}",
       "examples",
     ],
   },

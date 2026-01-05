@@ -16,6 +16,7 @@ import {
 
 const VALID_CONFIG_FILES = [
   "typed-scss-modules.config.ts",
+  "typed-scss-modules.config.mjs",
   "typed-scss-modules.config.js",
 ];
 const joycon = new JoyCon.default();
