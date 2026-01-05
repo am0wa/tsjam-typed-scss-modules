@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - "master"
-      - "alpha"
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -32,11 +31,11 @@ jobs:
       - name: "Lint"
         run: npm run check:linting
 
-      - name: "Test"
-        run: npm test
-
       - name: "Build"
         run: npm run build
+
+      - name: "Test"
+        run: npm test
 
       - name: "Format"
         run: npm run check:formatting
