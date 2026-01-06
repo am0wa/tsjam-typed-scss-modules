@@ -4,11 +4,13 @@ import {
   paramCase,
   snakeCase,
 } from "change-case";
-import type { Options } from "sass";
+import { type Options } from "sass";
 import {
   type Implementations,
+  getAsyncCompiler,
   getImplementation,
-} from "../implementations/implementations.js";
+  getSyncCompiler,
+} from "../implementations/index.js";
 import {
   type Aliases,
   type SASSImporter,
@@ -70,7 +72,7 @@ export const fileToClassNames = async (
     async = false,
   }: SASSOptions = {} as SASSOptions
 ) => {
-  const { compile, compileAsync } = await getImplementation(implementation);
+  const root = await getImplementation(implementation);
 
   const nameFormat = (
     typeof rawNameFormat === "string" ? [rawNameFormat] : rawNameFormat
@@ -83,7 +85,7 @@ export const fileToClassNames = async (
     : [nameFormatDefault];
 
   const result = !async
-    ? compile(file, {
+    ? getSyncCompiler({ implementation, root }).compile(file, {
         style,
         silenceDeprecations, // Suppress specified deprecations
         importers: customImporters<"sync">({
@@ -93,7 +95,9 @@ export const fileToClassNames = async (
         }),
         loadPaths: loadPaths,
       })
-    : await compileAsync(file, {
+    : await (
+        await getAsyncCompiler({ implementation, root })
+      ).compileAsync(file, {
         style,
         silenceDeprecations, // Suppress specified deprecations
         importers: customImporters<"async">({

@@ -1,6 +1,6 @@
 {
   "name": "@tsjam/typed-scss-modules",
-  "version": "10.1.0",
+  "version": "10.2.0",
   "description": "TypeScript type definition generator for SCSS CSS Modules",
   "type": "module",
   "exports": {

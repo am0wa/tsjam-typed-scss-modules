@@ -17,6 +17,9 @@
 .idea/*
 *.iml
 
+*.tgz
+package
+
 *.scss.d.ts
 
 npm-debug.log*

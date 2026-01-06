@@ -8,6 +8,7 @@ import {
   setAlertsLogLevel,
   watch,
 } from "./core/index.js";
+import { disposeAllCompilers } from "./implementations/compilers.js";
 import { loadConfig, mergeOptions } from "./load.js";
 
 export const main = async (
@@ -41,7 +42,8 @@ export const main = async (
 
   if (options.watch) {
     watch(pattern, options);
-  } else {
-    await generate(pattern, options);
+    return;
   }
+
+  await generate(pattern, options).finally(() => disposeAllCompilers());
 };

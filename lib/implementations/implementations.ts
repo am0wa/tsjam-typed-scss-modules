@@ -1,5 +1,11 @@
-import sass from "sass";
-import sassEmbedded from "sass-embedded";
+import sass, {
+  AsyncCompiler as SassAsyncCompiler,
+  Compiler as SassCompiler,
+} from "sass";
+import sassEmbedded, {
+  AsyncCompiler as SassEmbeddedAsyncCompiler,
+  Compiler as SassEmbeddedCompiler,
+} from "sass-embedded";
 
 /**
  * A list of all possible SASS package implementations that can be used to
@@ -10,7 +16,10 @@ import sassEmbedded from "sass-embedded";
 export const IMPLEMENTATIONS = ["sass", "sass-embedded"] as const;
 export type Implementations = (typeof IMPLEMENTATIONS)[number];
 
-type Implementation = typeof sass | typeof sassEmbedded;
+export type Implementation = typeof sass | typeof sassEmbedded;
+
+export type SyncCompiler = SassCompiler | SassEmbeddedCompiler;
+export type AsyncCompiler = SassAsyncCompiler | SassEmbeddedAsyncCompiler;
 
 /**
  * Determine which default implementation to use by checking which packages
@@ -46,8 +55,7 @@ export const getImplementation = async (
   // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   implementation: Implementations | string = "sass"
 ): Promise<Implementation> => {
-  const compiler = await getImplementationAsync(implementation);
-  return compiler;
+  return getImplementationAsync(implementation);
 };
 
 export const getImplementationAsync = (
