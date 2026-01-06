@@ -4,7 +4,8 @@ import { type SASSImporter } from "../lib/sass/importer.js";
 
 const CONFIG_CASES = [
   "js-default-export",
-  "js-module-exports",
+  "js-module-export",
+  "mjs-module-export",
   "js-named-export",
   "ts-default-export",
   "ts-named-export",
