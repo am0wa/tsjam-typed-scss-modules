@@ -103,6 +103,8 @@ Paths in which to look for stylesheets loaded by rules like `@use` and `@import`
 - **Default**: If an option is passed, it will always use `compileAsync`. By default, sass synchronous `compile` method is used.
 - **Example**: `typed-scss-modules src --async --implementation sass-embedded`
 
+**Heads up!** it's recommended by Sass to use `async` with `sass-embedded` and synchronous compile with `sass` for best performance.
+
 [Sass compileAsync spec](https://sass-lang.com/documentation/js-api/functions/compileasync/)
 
 ### `--aliases` (`-a`)
