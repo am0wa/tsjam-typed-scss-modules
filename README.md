@@ -82,13 +82,14 @@ Skips the initial build when passing the watch flag. Use this when running concu
 
 A pattern or an array of glob patterns to exclude files that match and avoid generating type definitions.
 
-### `--includePaths` (`-i`)
+### `--loadPaths` (`-i`)
 
 - **Type**: `string[]`
 - **Default**: `[]`
-- **Example**: `typed-scss-modules src --includePaths src/core`
+- **Example**: `typed-scss-modules src --loadPaths src/core`
 
-An array of paths to look in to attempt to resolve your `@import` declarations. This example will search the `src/core` directory when resolving imports.
+Paths in which to look for stylesheets loaded by rules like `@use` and `@import`.. This example will search the `src/core` directory when resolving imports.
+[Sass loadPaths ref](https://sass-lang.com/documentation/js-api/interfaces/options/#loadPaths)
 
 ### `--implementation`
 
@@ -304,13 +305,13 @@ It will use the relative path to the SCSS module from where this tool is execute
 }
 ```
 
-### `--additionalData` (`-d`)
+### `--style` (`-s`)
 
-- **Type**: `string`
-- **Default**: _none_
-- **Example**: `typed-scss-modules src --additionalData '$global-var: green;'`
+- **Type**: `expanded` | `compressed`
+- **Default**: _expanded_
+- **Example**: `typed-scss-modules src --style 'compressed'`
 
-Prepend the provided SCSS code before each file. This is useful for injecting globals into every file, such as adding an import to load global variables for each file.
+The [OutputStyle](https://sass-lang.com/documentation/js-api/types/outputstyle/) of the compiled CSS.
 
 ## Config options
 
@@ -336,6 +337,7 @@ export default {
   exportType: "default",
   exportTypeName: "TheClasses",
   logLevel: "error",
+  silenceDeprecations: ["import"],
 };
 ```
 
@@ -353,6 +355,13 @@ In addition to all CLI options, the following are options only available with th
 Define a [single custom SASS importer or an array of SASS importers](https://github.com/sass/sass/blob/f355f602fc15f55b0a0a795ebe6eb819963e08a5/js-api-doc/legacy/importer.d.ts#L51-L149). This should only be necessary if custom SASS importers are already being used in the build process. This is used internally to implement `aliases` and `aliasPrefixes`.
 
 Refer to [`lib/sass/importer.ts`](/blob/master/lib/sass/importer.ts) for more details and the `node-sass` and `sass` importer type definitions.
+
+### `silenceDeprecations`
+
+A set of active deprecations to ignore.
+If a deprecation warning of any provided type is encountered during compilation, the compiler will ignore it instead
+
+[Sass deprecations](https://sass-lang.com/documentation/js-api/interfaces/deprecations/)
 
 ### `--allowArbitraryExtensions`
 
