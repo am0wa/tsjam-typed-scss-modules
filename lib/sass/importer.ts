@@ -2,9 +2,14 @@
 import type { FileImporter, PromiseOr, Importer as SassImporter } from "sass";
 import { pathToFileURL } from "url";
 
-type Importer = SassImporter<"sync"> | FileImporter<"sync">;
+export type SyncMode = "sync" | "async";
+type Importer<TSync extends SyncMode = "sync"> =
+  | SassImporter<TSync>
+  | FileImporter<TSync>;
 
-export type { Importer as SASSImporter };
+type AsyncImporter = Importer<"async">;
+
+export type { AsyncImporter as SASSAsyncImporter, Importer as SASSImporter };
 
 export interface Aliases {
   [index: string]: string;
@@ -36,14 +41,14 @@ export const aliasResolver =
     return null;
   };
 
-export const aliasImporter = ({
+export const aliasImporter = <TSync extends SyncMode = "sync">({
   aliases,
   aliasPrefixes,
-}: AliasImporterOptions): FileImporter => {
+}: AliasImporterOptions): FileImporter<TSync> => {
   const resolveFileUrl = aliasResolver({ aliases, aliasPrefixes });
 
   return {
-    findFileUrl(url): PromiseOr<URL | null, "sync"> {
+    findFileUrl(url): PromiseOr<URL | null, TSync> {
       const alias = resolveFileUrl(url);
       if (!alias) return null;
       return pathToFileURL(alias) as URL;
@@ -63,11 +68,13 @@ export interface SASSImporterOptions {
  *  - Given aliases and alias prefix options, add a custom alias importer.
  *  - Given custom SASS importer(s), append to the list of importers.
  */
-export const customImporters = ({
+export const customImporters = <TSync extends SyncMode = "sync">({
   aliases = {},
   aliasPrefixes = {},
   importers = [],
-}: SASSImporterOptions): Importer[] => {
-  const bundled: Importer[] = [aliasImporter({ aliases, aliasPrefixes })];
+}: SASSImporterOptions): Importer<TSync>[] => {
+  const bundled: Importer<TSync>[] = [
+    aliasImporter<TSync>({ aliases, aliasPrefixes }),
+  ];
   return bundled.concat(importers);
 };

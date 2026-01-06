@@ -94,8 +94,16 @@ Paths in which to look for stylesheets loaded by rules like `@use` and `@import`
 ### `--implementation`
 
 - **Type**: `"sass-embedded" | "sass"`
-- **Default**: If an option is passed, it will always use the provided package implementation. If an option is not passed, it will first check if `node-sass` is installed. If it is, it will be used. Otherwise, it will then check if `sass` is installed. If it is, it will be used. Finally, falling back to `node-sass` if all checks and validations fail.
+- **Default**: If an option is passed, it will always use the provided package implementation. If an option is not passed, it will first check if `sass` is installed. If it is, it will be used. Otherwise, it will then check if `sass-embedded` is installed. If it is, it will be used. Finally, falling back to `sass` if all checks and validations fail.
 - **Example**: `typed-scss-modules src --implementation sass`
+
+### `--async`
+
+- **Type**: `boolean`
+- **Default**: If an option is passed, it will always use `compileAsync`. By default, sass synchronous `compile` method is used.
+- **Example**: `typed-scss-modules src --async --implementation sass-embedded`
+
+[Sass compileAsync spec](https://sass-lang.com/documentation/js-api/functions/compileasync/)
 
 ### `--aliases` (`-a`)
 
@@ -354,7 +362,7 @@ In addition to all CLI options, the following are options only available with th
 
 Define a [single custom SASS importer or an array of SASS importers](https://github.com/sass/sass/blob/f355f602fc15f55b0a0a795ebe6eb819963e08a5/js-api-doc/legacy/importer.d.ts#L51-L149). This should only be necessary if custom SASS importers are already being used in the build process. This is used internally to implement `aliases` and `aliasPrefixes`.
 
-Refer to [`lib/sass/importer.ts`](/blob/master/lib/sass/importer.ts) for more details and the `node-sass` and `sass` importer type definitions.
+Refer to [`lib/sass/importer.ts`](/blob/master/lib/sass/importer.ts) for more details and `sass` importer type definitions.
 
 ### `silenceDeprecations`
 

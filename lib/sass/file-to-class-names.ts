@@ -13,6 +13,7 @@ import {
   type Aliases,
   type SASSImporter,
   type SASSImporterOptions,
+  type SyncMode,
   customImporters,
 } from "./importer.js";
 import { sourceToClassNames } from "./source-to-class-names.js";
@@ -42,15 +43,16 @@ const NAME_FORMATS_WITH_TRANSFORMER = Object.keys(
 export const NAME_FORMATS = [...NAME_FORMATS_WITH_TRANSFORMER, "all"] as const;
 export type NameFormat = (typeof NAME_FORMATS)[number];
 
-export type SassOptionsSync = Pick<
-  Options<"sync">,
+export type InternalSassOptions = Pick<
+  Options<SyncMode>,
   "style" | "loadPaths" | "silenceDeprecations"
 >;
 
-export interface SASSOptions extends SASSImporterOptions, SassOptionsSync {
+export interface SASSOptions extends SASSImporterOptions, InternalSassOptions {
   nameFormat?: string | string[];
   implementation: Implementations;
-  importers?: SASSImporter[];
+  async?: boolean;
+  importers?: SASSImporter<SyncMode>[];
 }
 export const nameFormatDefault: NameFormatWithTransformer = "camel";
 
@@ -65,9 +67,10 @@ export const fileToClassNames = async (
     aliases,
     aliasPrefixes,
     importers = [],
+    async = false,
   }: SASSOptions = {} as SASSOptions
 ) => {
-  const { compile } = await getImplementation(implementation);
+  const { compile, compileAsync } = await getImplementation(implementation);
 
   const nameFormat = (
     typeof rawNameFormat === "string" ? [rawNameFormat] : rawNameFormat
@@ -79,12 +82,27 @@ export const fileToClassNames = async (
       : (nameFormat as NameFormatWithTransformer[])
     : [nameFormatDefault];
 
-  const result = compile(file, {
-    style,
-    silenceDeprecations, // Suppress specified deprecations
-    importers: customImporters({ aliases, aliasPrefixes, importers }),
-    loadPaths: loadPaths,
-  });
+  const result = !async
+    ? compile(file, {
+        style,
+        silenceDeprecations, // Suppress specified deprecations
+        importers: customImporters<"sync">({
+          aliases,
+          aliasPrefixes,
+          importers,
+        }),
+        loadPaths: loadPaths,
+      })
+    : await compileAsync(file, {
+        style,
+        silenceDeprecations, // Suppress specified deprecations
+        importers: customImporters<"async">({
+          aliases,
+          aliasPrefixes,
+          importers,
+        }),
+        loadPaths: loadPaths,
+      });
 
   const classNames = await sourceToClassNames(result.css, file);
   const transformers = nameFormats.map((item) => transformersMap[item]);

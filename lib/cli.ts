@@ -76,6 +76,11 @@ const { _: patterns, ...rest } = yargs(hideBin(process.argv))
     describe:
       "The SASS package to used to compile. This will default to the sass implementation you have installed.",
   })
+  .option("async", {
+    boolean: true,
+    describe:
+      "The SASS package compile method to use (compile | compileAsync). By default the synchronous 'compile' method is used.",
+  })
   .option("exportType", {
     choices: EXPORT_TYPES,
     alias: "e",
@@ -111,7 +116,7 @@ const { _: patterns, ...rest } = yargs(hideBin(process.argv))
     array: true,
     string: true,
     alias: "i",
-    describe: "Additional paths to check when trying to resolve imports.",
+    describe: "Include paths to check when trying to resolve imports.",
   })
   .option("ignore", {
     string: true,
