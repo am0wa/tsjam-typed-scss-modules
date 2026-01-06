@@ -11,13 +11,13 @@ Generate TypeScript definitions (`.d.ts`) files for CSS Modules that are written
 For example, given the following SCSS:
 
 ```scss
-@import "variables";
+@use "variables";
 
 .text {
-  color: $blue;
+  color: variables.$blue;
 
   &-highlighted {
-    color: $yellow;
+    color: variables.$yellow;
   }
 }
 ```
@@ -102,6 +102,8 @@ Paths in which to look for stylesheets loaded by rules like `@use` and `@import`
 - **Type**: `boolean`
 - **Default**: If an option is passed, it will always use `compileAsync`. By default, sass synchronous `compile` method is used.
 - **Example**: `typed-scss-modules src --async --implementation sass-embedded`
+
+**Heads up!** it's recommended by Sass to use `async` with `sass-embedded` and synchronous compile with `sass` for best performance.
 
 [Sass compileAsync spec](https://sass-lang.com/documentation/js-api/functions/compileasync/)
 
